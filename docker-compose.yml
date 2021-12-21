@@ -2,35 +2,37 @@ version: "3.7"
 
 services:
   app:
-    build: "./app"
-    container_name: app
+    build: "./server"
+    container_name: Server
     restart: always
     ports:
       - 80:80
     volumes:
-      - ./app/:/var/www/html
+      - ./server/:/var/www/html
     depends_on:
       - db
     links:
       - db 
       
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: alfa
-    ports:
-      - 5432:5432
-    volumes:
-      - ./db/data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  # db:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_PASSWORD: alfa
+  #     POSTGRES_USER: jedi
+  #     POSTGRES_DB: technews
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ./db/data:/var/lib/postgresql/data
+  #     - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
-    links:
-      - db
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - db
+  #   links:
+  #     - db
