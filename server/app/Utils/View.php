@@ -16,13 +16,6 @@ class View{
     $keys = array_map(function($key){
       return '{{'.$key.'}}';
     }, $keys);
-
-
-
-    // echo "<pre>";
-    // print_r($keys);
-    // echo "</pre>";
-
     return str_replace($keys, array_values($data), $contentView);
   }
 }

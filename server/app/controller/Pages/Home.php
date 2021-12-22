@@ -9,7 +9,7 @@ class Home extends Page{
 
     public static function getHome(){
       $objNews =  new News();
-      
+
       $content =  View::render('pages/home',[
         'id' => $objNews->id,
         'title' => $objNews->title,
