@@ -1,16 +1,12 @@
 <?php 
 require __DIR__.'/vendor/autoload.php';
 
-use App\http\Router;
-use App\http\Response;
-use App\Controller\Pages\Home;
+use \App\Model\News;
 
-define('URL', 'http://localhost:80');
+$news = new News();
 
-$Router = new Router(URL);
+$news->addNews();
 
-$Router->get('/',[
-  function(){
-    return new Response(200,Home::getHome());
-  }
-]);
+include __DIR__.'/includes/header.php';
+include __DIR__.'/includes/news.php';
+include __DIR__.'/includes/footer.php';
