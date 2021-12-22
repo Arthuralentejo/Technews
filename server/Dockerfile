@@ -1,4 +1,8 @@
 FROM php:7.4-apache
 
+WORKDIR /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-# ENTRYPOINT ["composer", "install"]
+RUN docker-php-ext-install pdo_mysql
+COPY composer.json ./
+COPY composer.lock ./
+RUN composer install --no-plugins --no-scripts
