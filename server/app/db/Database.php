@@ -2,7 +2,7 @@
 namespace App\Db;
 
 use \PDO;
-use PDOException;
+use \PDOException;
 
 class Database{
 
@@ -26,14 +26,18 @@ class Database{
 
   private function connect(){
     try {
-      $this->connection = new PDO("postgresql:host=".self::HOST.";dbname=".self::NAME, self::USER, self::PASSWORD);
-
+      echo "Tentou";
+      $this->connection = new PDO("pgsql:host=".self::HOST.";dbname=".self::NAME, self::USER, self::PASSWORD);
+      echo '<pre>';
+      print_r($this->connection);
+      echo '</pre>';
       //config pdo para lançar exceção caso ocorra erro
       $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
 
       //logar esse erro futuramente
-      die('ERROR: '.$e->getMessage());
+      echo "Nem tentou";
+      die('ERROR: '.$e);
     }
   }
 }
