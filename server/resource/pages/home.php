@@ -15,17 +15,17 @@
               <div class="card shadow-sm">
                   <div class="card-body">
                       <h5 class="card-title">
-                        {{title}}
+                      <?=TITLE?>
                       </h5>
                       <p class="card-text">
-                        {{content}}
+                      <?=CONTENT?>
                       </p>
                       <p class="card-text">
                           <small class="text-muted">
-                              {{date}}
+                          <?=DATE?>
                           </small>
                       </p>
-                      <a href="/noticia?id={{id}}" class="btn btn-primary">
+                      <a href="/noticia?id=<?=ID?>" class="btn btn-primary">
                           Saiba mais
                       </a>
                   </div>

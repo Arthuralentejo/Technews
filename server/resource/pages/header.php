@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
-    {{page-title}}
+  <?=PAGE_TITLE?>
   </title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,7 +21,7 @@
    justify-content-center align-items-center">
 
       <div class="navbar-brand">
-          <img src="./includes/logo.png" class="" height="40" alt="logo">
+          <img src="../logo.png" class="" height="40" alt="logo">
       </div>
 
       <div>
@@ -33,7 +33,7 @@
                   <a href="/news.php" class="nav-link text-white" id="News">Notícias</a>
               </li>
               <li>
-                  <a href="/addNews" class="nav-link text-white" id="addNews">Nova Notícia</a>
+                  <a href="/addNews.php" class="nav-link text-white" id="addNews">Nova Notícia</a>
               </li>
           </ul>
       </div>
