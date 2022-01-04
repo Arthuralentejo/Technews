@@ -1,12 +1,10 @@
 <?php 
-require __DIR__.'/vendor/autoload.php';
-use \App\Model\News;
+require __DIR__.'/bootstrap/app.php';
 
-define('PAGE_TITLE','Página Inicial');
-$news = News::getNews();
-exit;
+use App\http\Router;
 
+$router = new Router(URL);
 
-include __DIR__.'/Resource/pages/header.php';
-include __DIR__.'/Resource/pages/home.php';
-include __DIR__.'/Resource/pages/footer.php';
+include __DIR__.'/routes/pages.php';
+
+$router->run()->sendResponse();

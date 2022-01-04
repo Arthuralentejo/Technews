@@ -8,3 +8,4 @@ RUN apt-get update && apt-get install -y libpq-dev \
 COPY composer.json ./
 COPY composer.lock ./
 RUN composer install --no-plugins --no-scripts
+RUN a2enmod rewrite && service apache2 restart

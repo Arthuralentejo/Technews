@@ -1,9 +1,8 @@
 CREATE TABLE IF NOT EXISTS news (
-  news_id SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   content TEXT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO news (title, content) VALUES ('News', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis purus ac nisl posuere pharetra. Etiam elementum lectus ac accumsan pretium. Quisque felis purus, venenatis non mauris ac, hendrerit lobortis sem. Nam turpis lacus, rhoncus quis mi semper, faucibus molestie neque. Aliquam molestie lectus ac nibh imperdiet, vitae facilisis eros imperdiet. Morbi neque nisl, placerat fermentum laoreet semper, porta in dui. In ut quam quam. Donec tincidunt pellentesque massa. Vivamus pharetra id quam ut semper. Nam tristique dictum arcu, eu aliquet mauris tempor vitae. Etiam iaculis libero id egestas bibendum. Quisque commodo quis lorem eu lobortis. Suspendisse potenti. Sed vel dignissim arcu.');

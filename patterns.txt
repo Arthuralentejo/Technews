@@ -1,0 +1,8 @@
+
+/^\/$/
+/^\/news$/
+/^\/news\/(.*?)$/
+/^\/publish$/
+/^\/publish$/
+/^\/news\/(.*?)\/update$/
+/^\/news\/(.*?)\/delete$/
