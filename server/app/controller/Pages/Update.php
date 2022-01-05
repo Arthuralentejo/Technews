@@ -5,14 +5,15 @@ use \App\Utils\View;
 use \App\Utils\Database;
 use \Exception;
 use App\http\Response;
-class Publish extends Page{
+class Update extends Page{
 
   public static function getPublishForm(){
     $content =  View::render('pages/publish');
     return parent::getPage('TechNews - Home',$content);
   }
 
-  public static function publish($request = null){
+  public static function Update($request = null){
+    exit;
     $db = new Database('news');
     $ins = $request->getPostVars();
     $ins['date'] = date('Y-m-d H:i:s');

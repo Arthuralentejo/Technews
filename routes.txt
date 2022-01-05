@@ -1,7 +1,0 @@
-/
-/news
-/news/{id}
-/publish
-/publish
-/news/{id}/update
-/news/{id}/delete

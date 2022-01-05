@@ -12,6 +12,31 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
+<script>
+  function del(id) {
+    if (confirm("Deseja realmente excluir este registro?")) {
+      const options = {
+        method: 'DELETE'
+      }
+      try {
+        fetch(`/news/delete?id=${id}`, options).then(() => { console.log('Deletado com sucesso!') })
+      } catch (error) {
+        alert('Erro ao deletar!')
+
+      }
+    }
+  }
+  function update(id) {
+      const options = {
+        method: 'PUT'
+      }
+      try {
+        fetch(`/news/update?id=${id}`, options)
+      } catch (error) {
+        alert('Erro ao autalizar!')
+      }
+  }
+</script>
 
 <body class="d-flex flex-column h-100">
   {{header}}

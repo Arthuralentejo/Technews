@@ -27,8 +27,7 @@ class Router{
     $this->prefix = $parseURL['path'] ?? '';
   }
 
-  private function addRoute($method, $route,$params = []) {
-    
+  private function addRoute($method, $route,$params = []) {    
     foreach ($params as $key => $value) {
       if($value instanceof Closure){
          $params['controller'] = $value;
@@ -42,13 +41,10 @@ class Router{
     $patternVar = '/{(.*?)}/';
 
     if(preg_match_all($patternVar, $route, $matches)){
-      $route = preg_replace($patternVar,'(.*?)',$route);
+      $route = preg_replace($patternVar,'\(.*?\)',$route);
       $params['vars'] = $matches[1];
     }
     $patternRoute = '/^'.str_replace('/', '\/', $route).'$/';
-    echo '<pre>';
-    print_r($patternRoute);
-    echo '</pre>';
     $this->routes[$patternRoute][$method] = $params;
   }
 
@@ -72,6 +68,7 @@ class Router{
     $httpMethod = $this->request->getHttpMethod();
     foreach ($this->routes as $route => $methods) {
       if(preg_match($route, $uri,$matches)){
+
         if(isset($methods[$httpMethod])){
           unset($matches[0]);
           $keys =  $methods[$httpMethod]['vars'];
@@ -98,7 +95,6 @@ class Router{
         $name = $parameter->getName();
         $args[$name] = $route['vars'][$name] ?? '';
       }
-      exit;
       return call_user_func_array($route['controller'], $args);
     } catch (Exception $e) {
       return new Response($e->getCode(), $e->getMessage());

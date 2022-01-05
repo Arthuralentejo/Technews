@@ -16,7 +16,6 @@ $router->get('/news',[
 ]);
 $router->get('/news/{id}',[
   function($id){
-    
     return new Response(200,Pages\News::getSingleNewsPage($id));
   }
 ]);
@@ -32,11 +31,11 @@ $router->post('/publish',[
 ]);
 $router->put('/news/update/{id}',[
   function($request){
-    return Pages\Publish::publish($request);
+    return Pages\Update::Update($request);
   }
 ]);
 $router->delete('/news/delete/{id}',[
   function($request){
-    return Pages\Publish::publish($request);
+    return Pages\Delete::delete($request);
   }
 ]);
