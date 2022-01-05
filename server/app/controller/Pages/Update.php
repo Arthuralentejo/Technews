@@ -1,30 +1,45 @@
 <?php
 
 namespace App\Controller\Pages;
+
 use \App\Utils\View;
 use \App\Utils\Database;
+use \App\Model\Entity\News as NewsEntity;
 use \Exception;
 use App\http\Response;
+
 class Update extends Page{
 
-  public static function getPublishForm(){
-    $content =  View::render('pages/publish');
-    return parent::getPage('TechNews - Home',$content);
+  public static function getUpdateForm($id)  {
+    if (!$id) {
+      return new Response(404, 'Page not found');
+    }
+    $db = new Database('news');
+    $dbReturn = $db->select('id=' . $id);
+    if (!$dbReturn) {
+      return new Response(404, 'News not found');
+    }
+    $news = $dbReturn->fetchObject(NewsEntity::class);
+    $content =  View::render('pages/publish',[
+      'action' => 'Update',
+      'title' => $news->title,
+      'content' => $news->content
+    ]);
+    return parent::getPage('TechNews - Update News',$content);
   }
 
-  public static function Update($request = null){
-    exit;
+  public static function Update($request = null)
+  {
     $db = new Database('news');
     $ins = $request->getPostVars();
-    $ins['date'] = date('Y-m-d H:i:s');
+    $id = $request->getQueryParams()['id'];
     try {
-      $db->insert($ins);
-      $resp = new Response(201,'');
-      $resp->addHeader('Location','/');
-
+      $db->update('id='.$id, $ins);
+      $resp = new Response(204, '');
+      $resp->addHeader('Location', '/');
       return $resp;
     } catch (Exception $e) {
-      return new Response(500,$e->getMessage());
+      return new Response(500, $e->getMessage());
     }
   }
 }

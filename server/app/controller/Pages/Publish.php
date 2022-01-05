@@ -15,7 +15,7 @@ class Publish extends Page{
       'title' => '',
       'content' => '',
     ]);
-    return parent::getPage('TechNews - Home',$content);
+    return parent::getPage('TechNews - Publish News',$content);
   }
 
   public static function publish($request = null){

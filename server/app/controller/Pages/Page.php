@@ -21,7 +21,6 @@ class Page{
 
     $url = $request->getRouter()->getCurrentUrl();
     $queryParams = $request->getQueryParams();
-
     foreach ($pages as $page) {
       $queryParams['page'] = $page['page'];
       $link = $url.'?'.http_build_query($queryParams);
