@@ -30,12 +30,12 @@ $router->post('/publish',[
   }
 ]);
 $router->put('/news/update/{id}',[
-  function($request){
-    return Pages\Update::Update($request);
+  function($id){
+    return Pages\Update::Update($id);
   }
 ]);
 $router->delete('/news/delete/{id}',[
-  function($request){
-    return Pages\Delete::delete($request);
+  function($id){
+    return Pages\Delete::delete($id);
   }
 ]);

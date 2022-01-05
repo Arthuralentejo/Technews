@@ -22,13 +22,13 @@ class Response{
     $this->headers[$key] = $value;
   }
 
-  private function cors(){
+  private function addCorsPolicy(){
     $this->addHeader('Access-Control-Allow-Origin', '*');
     $this->addHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     $this->addHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   }
   private function sendHeaders(){
-    $this->cors();
+    $this->addCorsPolicy();
     http_response_code($this->httpCode);
     foreach($this->headers as $key=>$value){
       header($key.': '.$value);

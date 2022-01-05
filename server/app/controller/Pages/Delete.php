@@ -8,9 +8,8 @@ use App\http\Response;
 
 class Delete{
 
-  public static function delete($request = null){
+  public static function delete($id = null){
     $db = new Database('news');
-    $id = $request->getQueryParams()['id'];
     try {
       $db->delete('id='.$id);
       $resp = new Response(302,'');
