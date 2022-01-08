@@ -12,6 +12,7 @@ services:
       - db
     links:
       - db
+    # command: composer install -d /var/www/html --no-plugins --no-scripts
 
   db:
     image: postgres:10

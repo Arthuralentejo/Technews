@@ -68,7 +68,6 @@ class Router{
     $httpMethod = $this->request->getHttpMethod();
     foreach ($this->routes as $route => $methods) {
       if(preg_match($route, $uri,$matches)){
-
         if(isset($methods[$httpMethod])){
           unset($matches[0]);
           $keys =  $methods[$httpMethod]['vars'];
