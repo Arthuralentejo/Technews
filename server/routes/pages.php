@@ -14,7 +14,12 @@ $router->get('/news',[
     return new Response(200,Pages\News::getNewsPage($request));
   }
 ]);
-$router->get('/news/{id}',[
+$router->get('/news:page',[
+  function($request){
+    return new Response(200,Pages\News::getNewsPage($request));
+  }
+]);
+$router->get('/news:id',[
   function($id){
     return new Response(200,Pages\News::getSingleNewsPage($id));
   }
@@ -29,14 +34,14 @@ $router->post('/publish',[
     return Pages\Publish::publish($request);
   }
 ]);
-$router->get('/news/update/{id}',[
+$router->get('/news/update:id',[
   function($id){
     return new Response(200,Pages\Update::getUpdateForm($id));
   }
 ]);
 
 //let me try this
-$router->post('/news/update/{id}',[
+$router->post('/news/update:id',[
   function($request){
     return Pages\Update::Update($request);
   }
@@ -49,7 +54,7 @@ $router->post('/news/update/{id}',[
 //   }
 // ]);
 
-$router->delete('/news/delete/{id}',[
+$router->delete('/news/delete:id',[
   function($id){
     return Pages\Delete::delete($id);
   }

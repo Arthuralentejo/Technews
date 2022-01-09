@@ -12,17 +12,12 @@ class Request{
   public function __construct($router){
     $this->router = $router;
     $this->httpMethod = $_SERVER['REQUEST_METHOD'] ?? '';
-    $this->setUri();
+    $this->uri = $_SERVER['REQUEST_URI'] ?? [];
     $this->queryParams = $_GET ?? [];
     $this->postVars = $_POST ?? [];
     $this->headers = getallheaders();
   }
-  private function setUri(){
-    $this->uri = $_SERVER['REQUEST_URI'] ?? [];
-    $xURI = explode('?',$this->uri);
-    $query = $xURI[1] ? '/(.*?)':'';
-    $this->uri = $xURI[0].$query;
-  }
+
   public function getRouter(){
     return $this->router;
   }
