@@ -12,6 +12,7 @@ class News extends Page{
     $page = $request->getQueryParams()['page'] ?? 1;
     $pagination = new Pagination($total,$page,$limit);
 
+    
     try {
       $db = (new Database('news'))->select('', 'id DESC', $pagination->getLimit());
       while($objNews = $db->fetchObject(NewsEntity::class)){
