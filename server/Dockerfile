@@ -1,19 +1,23 @@
-FROM php:7.4-apache
+FROM php:7.4-fpm-alpine
 
-WORKDIR /var/www/html
+WORKDIR /var/www
+RUN apk update --no-cache \
+&& apk add \
+vim
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN apt-get update && apt-get install -y libpq-dev \
+RUN apk add libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
-
+ 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+ 
 COPY composer.json ./
 COPY composer.lock ./
 COPY entrypoint.sh ./
 
-RUN a2enmod rewrite && service apache2 restart
 RUN chmod +x entrypoint.sh
 
-EXPOSE 80
+EXPOSE 9000
 
-ENTRYPOINT [ "bash", "entrypoint.sh" ]
+ENTRYPOINT ["./entrypoint.sh" ]
+
