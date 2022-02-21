@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Controller\Pages;
-use \App\Utils\View;
-use \App\Utils\Database;
-use \App\Model\Entity\News as NewsEntity;
+use App\Utils\View;
+use App\Repository\Database;
+use App\Model\Entity\News as NewsEntity;
+use Exception;
+
 class Home extends Page{
   public static function getHomePage($limit){
     $itens = '';
@@ -18,7 +20,7 @@ class Home extends Page{
         ]);
       }
       return $itens;
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
       throw $e;
     }
   }

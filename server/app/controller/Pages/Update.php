@@ -2,11 +2,11 @@
 
 namespace App\Controller\Pages;
 
-use \App\Utils\View;
-use \App\Utils\Database;
-use \App\Model\Entity\News as NewsEntity;
-use \Exception;
-use App\http\Response;
+use App\Utils\View;
+use App\Repository\Database;
+use App\Model\Entity\News as NewsEntity;
+use Exception;
+use App\Http\Response;
 
 class Update extends Page{
 

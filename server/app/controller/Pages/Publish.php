@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Controller\Pages;
-use \App\Utils\View;
-use \App\Utils\Database;
-use \Exception;
-use App\http\Response;
+use App\Utils\View;
+use App\Repository\Database;
+use Exception;
+use App\Http\Response;
 
 class Publish extends Page{
 

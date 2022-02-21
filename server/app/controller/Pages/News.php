@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Controller\Pages;
-use \App\Utils\View;
-use \App\Model\Entity\News as NewsEntity;
-use \App\Utils\Database;
-use \App\Utils\Pagination;
+use App\Utils\View;
+use App\Model\Entity\News as NewsEntity;
+use App\Repository\Database;
+use App\Utils\Pagination;
+use Exception;
+
 class News extends Page{
   public static function getNewsItens($request,&$pagination,$limit = 9){
     $itens = '';
@@ -23,7 +25,7 @@ class News extends Page{
         ]);
       }
       return $itens;
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
       throw $e;
     }
   }
@@ -38,7 +40,7 @@ class News extends Page{
         'content' => $objNews->content,
         'date' => $objNews->date
       ]);
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
       throw $e;
     }
     return parent::getPage('TechNews - '.$objNews->title,$content);
