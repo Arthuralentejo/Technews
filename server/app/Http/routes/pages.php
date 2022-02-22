@@ -1,4 +1,4 @@
-<?php
+y<?php
 
 use App\Http\Request;
 use App\Http\Response;
@@ -22,7 +22,7 @@ $router->get('/news',[
      * @return Response
      */ function($request) : Response
     {
-        return new Response(200,Pages\News::getNewsPage($request));
+        return new Response(200,Pages\NewsController::getNewsPage($request));
     }
 ]);
 $router->get('/news:page',[
@@ -31,7 +31,7 @@ $router->get('/news:page',[
      * @return Response
      */ function($request) : Response
     {
-        return new Response(200,Pages\News::getNewsPage($request));
+        return new Response(200,Pages\NewsController::getNewsPage($request));
     }
 ]);
 $router->get('/news:id',[
@@ -41,7 +41,7 @@ $router->get('/news:id',[
      * @throws Exception
      */ function(int $id) : Response
     {
-        return new Response(200,Pages\News::getSingleNewsPage($id));
+        return new Response(200,Pages\NewsController::getSingleNewsPage($id));
     }
 ]);
 $router->get('/publish',[

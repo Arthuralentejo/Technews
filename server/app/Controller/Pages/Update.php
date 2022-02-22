@@ -18,7 +18,7 @@ class Update extends BaseController{
     $db = new Database('news');
     $dbReturn = $db->select('id=' . $id);
     if (!$dbReturn) {
-      return new Response(404, 'News not found');
+      return new Response(404, 'NewsController not found');
     }
     $news = $dbReturn->fetchObject(NewsEntity::class);
     $content =  View::render('pages/publish',[
@@ -26,7 +26,7 @@ class Update extends BaseController{
       'title' => $news->title,
       'content' => $news->content
     ]);
-    return parent::getPage('TechNews - Update News',$content);
+    return parent::getPage('TechNews - Update NewsController',$content);
   }
 
   public static function Update($request = null)

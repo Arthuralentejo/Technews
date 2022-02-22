@@ -16,7 +16,7 @@ class Publish extends BaseController{
       'title' => '',
       'content' => '',
     ]);
-    return parent::getPage('TechNews - Publish News',$content);
+    return parent::getPage('TechNews - Publish NewsController',$content);
   }
 
   public static function publish($request = null){

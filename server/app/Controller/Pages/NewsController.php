@@ -9,9 +9,11 @@ use App\Utils\View;
 use Exception;
 
 /**
+ * Class NewsController
  *
+ * @package App\Controller\News
  */
-class News extends BaseController{
+class NewsController extends BaseController{
     /**
      * @param Request $request
      * @param Pagination $pagination
@@ -19,10 +21,16 @@ class News extends BaseController{
      * @return string
      * @throws Exception
      */
-    public static function getNewsItens(Request $request, Pagination &$pagination, int $limit = 9): string
+    public function getNewsItens(Request $request, Pagination &$pagination, int $limit = 9): string
     {
     $itens = '';
-    $total = (new Database('news'))->select(null,null,null,'COUNT(*) as total')->fetchObject()->total;
+    $newsModel = new NewsModel();
+    $total = $newsModel->loadAll(
+        fields: "COUNT(*) as total"
+    );
+//    var_dump($total);
+//    die;
+//    $total = (new Database('news'))->select(null,null,null,'COUNT(*) as total')->fetchObject()->total;
     $page = $request->getQueryParams()['page'] ?? 1;
     $pagination = new Pagination($total,$page,$limit);
 
@@ -43,7 +51,7 @@ class News extends BaseController{
      * @return array|false|string|string[]
      * @throws Exception
      */
-    public static function getSingleNewsPage($id){
+    public function getSingleNewsPage($id){
         $db = (new Database('news'))->select('id='.$id);
         $objNews = $db->fetchObject(NewsEntity::class);
         $content = View::render('pages/singleNews', [
@@ -52,20 +60,21 @@ class News extends BaseController{
           'content' => $objNews->content,
           'date' => $objNews->date
         ]);
-        return parent::getPage('TechNews - '.$objNews->title,$content);
+        return $this->getPage('TechNews - '.$objNews->title,$content);
   }
 
 
     /**
      * @param $request
-     * @return array|false|string|string[]
+     * @return string
      * @throws Exception
      */
-    public static function getNewsPage($request){
+    public function getNewsPage($request): string
+    {
     $content =  View::render('pages/news',[
-      'news' => self::getNewsItens($request,$pagination),
-      'pagination' => parent::getPagination($request,$pagination)
+      'news' => $this->getNewsItens($request),
+      'pagination' => $this->getPagination($request,$pagination)
     ]);
-    return parent::getPage('TechNews - News',$content);
+    return parent::getPage('TechNews - NewsController',$content);
   }
 }

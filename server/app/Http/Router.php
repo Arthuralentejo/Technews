@@ -83,7 +83,7 @@ class Router
     {
         foreach ($params as $key => $value) {
             if ($value instanceof Closure) {
-                $params['controller'] = $value;
+                $params['Controller'] = $value;
                 unset($params[$key]);
                 continue;
             }
@@ -170,17 +170,17 @@ class Router
     {
         try {
             $route = $this->getRoute();
-            if (!isset($route['controller'])) {
+            if (!isset($route['Controller'])) {
                 throw new Exception('Error Processing Request', 500);
             }
             $args = [];
 
-            $reflection = new ReflectionFunction($route['controller']);
+            $reflection = new ReflectionFunction($route['Controller']);
             foreach ($reflection->getParameters() as $parameter) {
                 $name = $parameter->getName();
                 $args[$name] = $route['vars'][$name] ?? '';
             }
-            return call_user_func_array($route['controller'], $args);
+            return call_user_func_array($route['Controller'], $args);
         } catch (Exception $e) {
             return new Response($e->getCode(), $e->getMessage());
         }

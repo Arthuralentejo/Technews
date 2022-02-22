@@ -5,7 +5,7 @@ services:
     image: nginx:1.17.8
     container_name: server
     ports:
-      - 80:80
+      - "80:80"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./server:/var/www
@@ -15,14 +15,13 @@ services:
     build: "./server"
     container_name: app
     ports:
-      - 9000:9000
+      - "9000:9000"
     volumes:
       - ${PWD}/server/:/var/www
     depends_on:
       - db
     links:
       - db
-      - server
 
   db:
     image: postgres:10
@@ -31,14 +30,14 @@ services:
       POSTGRES_USER: jedi
       POSTGRES_DB: technews
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql:z
       - ${PWD}/config/db:/docker-entrypoint-initdb.d
   adminer:
     image: adminer
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - db
     links:
