@@ -1,11 +1,11 @@
-y<?php
+<?php
 
 use App\Http\Request;
 use App\Http\Response;
 use App\Controller\Pages;
-/**
- * @var App\Http\Router $router
- */
+use App\Http\Router;
+
+$router = Router::getInstance(URL);
 
 $router->get('/',[
     /**
@@ -90,3 +90,5 @@ $router->delete('/news/delete:id', [
         return Pages\Delete::delete($id);
     }
 ]);
+
+$router->run()->sendResponse();

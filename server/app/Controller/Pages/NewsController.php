@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller\Pages;
+
 use App\Controller\BaseController;
 use App\Http\Request;
 use App\Model\NewsModel;
@@ -13,55 +14,52 @@ use Exception;
  *
  * @package App\Controller\News
  */
-class NewsController extends BaseController{
+class NewsController extends BaseController
+{
     /**
      * @param Request $request
      * @param Pagination $pagination
-     * @param int $limit
+     * @param NewsModel $newsModel
      * @return string
-     * @throws Exception
      */
-    public function getNewsItens(Request $request, Pagination &$pagination, int $limit = 9): string
+    public static function getNewsItens(Request $request, Pagination &$pagination, NewsModel &$newsModel): string
     {
-    $itens = '';
-    $newsModel = new NewsModel();
-    $total = $newsModel->loadAll(
-        fields: "COUNT(*) as total"
-    );
-//    var_dump($total);
-//    die;
-//    $total = (new Database('news'))->select(null,null,null,'COUNT(*) as total')->fetchObject()->total;
-    $page = $request->getQueryParams()['page'] ?? 1;
-    $pagination = new Pagination($total,$page,$limit);
+        $itens = '';
 
-        $db = (new Database('news'))->select('', 'id DESC', $pagination->getLimit());
-        while($objNews = $db->fetchObject(NewsEntity::class)){
-          $itens .= View::render('pages/cards', [
-            'id' => $objNews->id,
-            'title' => $objNews->title,
-            'content' => substr("$objNews->content", 0, 50),
-            'date' => $objNews->date
-          ]);
+
+        $news = $newsModel->loadAll(
+            order:'DESC',
+            limit: $pagination->getLimit());
+
+        foreach($news as $objNews){
+            $itens .= View::render('pages/cards', [
+                'id' => $objNews->id,
+                'title' => $objNews->title,
+                'content' => substr("$objNews->content", 0, 50),
+                'date' => $objNews->date
+            ]);
         }
         return $itens;
     }
 
     /**
      * @param $id
-     * @return array|false|string|string[]
+     * @return string
      * @throws Exception
      */
-    public function getSingleNewsPage($id){
-        $db = (new Database('news'))->select('id='.$id);
+    public function getSingleNewsPage($id): string
+    {
+        $newsModel = new NewsModel();
+        $news = $newsModel->loadById($id);
         $objNews = $db->fetchObject(NewsEntity::class);
         $content = View::render('pages/singleNews', [
-          'id' => $objNews->id,
-          'title' => $objNews->title,
-          'content' => $objNews->content,
-          'date' => $objNews->date
+            'id' => $objNews->id,
+            'title' => $objNews->title,
+            'content' => $objNews->content,
+            'date' => $objNews->date
         ]);
-        return $this->getPage('TechNews - '.$objNews->title,$content);
-  }
+        return $this->getPage('TechNews - ' . $objNews->title, $content);
+    }
 
 
     /**
@@ -69,12 +67,16 @@ class NewsController extends BaseController{
      * @return string
      * @throws Exception
      */
-    public function getNewsPage($request): string
+    public static function getNewsPage($request): string
     {
-    $content =  View::render('pages/news',[
-      'news' => $this->getNewsItens($request),
-      'pagination' => $this->getPagination($request,$pagination)
-    ]);
-    return parent::getPage('TechNews - NewsController',$content);
-  }
+        $newsModel = new NewsModel();
+        $total = $newsModel->getTotal();
+        $page = $request->getQueryParams()['page'] ?? 1;
+        $pagination = new Pagination($total, $page, 9);
+        $content = View::render('pages/news', [
+            'news' => self::getNewsItens($request, $pagination,$newsModel),
+            'pagination' => self::getPagination($request, $pagination)
+        ]);
+        return parent::getPage('TechNews - NewsController', $content);
+    }
 }

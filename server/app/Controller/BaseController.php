@@ -64,7 +64,7 @@ abstract class BaseController
      *  @param string $content
      * @return string
      */
-    public function getPage(string $title, string $content): string
+    public static function getPage(string $title, string $content): string
     {
         return View::render('pages/page', [
             'page-title' => $title,
@@ -78,7 +78,7 @@ abstract class BaseController
      * @param string $url
      * @return void
      */
-    public function redirect(string $url): void
+    public static function redirect(string $url): void
     {
         header("Location: " . $url);
     }

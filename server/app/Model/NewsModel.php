@@ -11,11 +11,11 @@ use App\Utils\DBConnector;
 class NewsModel extends BaseModel
 {
     /**
-     * @var
+     * @var int
      */
     public int $id;
     /**
-     * @var
+     * @var string
      */
     public string $title;
     /**
@@ -23,7 +23,7 @@ class NewsModel extends BaseModel
      */
     public string $content;
     /**
-     * @var
+     * @var string
      */
     public string $date;
 

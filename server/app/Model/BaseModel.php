@@ -49,10 +49,22 @@ abstract class BaseModel
         }
         return $news;
     }
+
+
+    /**
+     * @return integer
+     */
+    public function getTotal(): int
+    {
+        $query = 'SELECT COUNT(*) as total FROM '.$this->tableName;
+
+        return $this->execute($query)->fetch(PDO::FETCH_ASSOC)['total'];
+    }
     /**
      * @param $values
      * @return false|string
      */
+
     public function insert($values): bool|string
     {
         $fields = array_keys($values);

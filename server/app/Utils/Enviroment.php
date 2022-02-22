@@ -2,10 +2,19 @@
 namespace App\Utils;
 
 
+/**
+ * Class Enviroment
+ *
+ * @package  App\Utils
+ */
 class Enviroment{
-  
 
-  public static function load($dir){
+
+    /**
+     * @param $dir
+     * @return false|void
+     */
+    public static function load($dir){
     if(!file_exists($dir)){
       return false;
     }

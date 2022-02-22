@@ -20,7 +20,7 @@ class IndexController extends BaseController
      * @return string
      * @throws Exception
      */
-    public function getHomePage($limit): string
+    public static function getHomePage($limit): string
     {
         $itens = '';
         $news = (new NewsModel())->loadAll(
@@ -42,11 +42,11 @@ class IndexController extends BaseController
      * @return string
      * @throws Exception
      */
-    public function getHome(): string
+    public static function getHome(): string
     {
         $content = View::render('pages/home', [
-            'news' => $this->getHomePage(3)
+            'news' => self::getHomePage(3)
         ]);
-        return $this->getPage('TechNews - IndexController', $content);
+        return self::getPage('TechNews - IndexController', $content);
     }
 }
