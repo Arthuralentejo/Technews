@@ -8,9 +8,12 @@ use App\Utils\View;
 use Exception;
 
 /**
+ * Class IndexController
  *
+ * @package App\Controller\Pages
  */
-class Home extends BaseController
+class IndexController extends BaseController
+
 {
     /**
      * @param $limit
@@ -20,10 +23,10 @@ class Home extends BaseController
     public static function getHomePage($limit): string
     {
         $itens = '';
-        $news = (new NewsModel())->load(
-            order: 'id DESC',
+        $news = (new NewsModel())->loadAll(
+            order: 'DESC',
             limit: $limit);
-        while ($objNews = $news->fetchObject(NewsModel::class)) {
+        foreach($news as $objNews) {
             $itens .= View::render('pages/cards', [
                 'id' => $objNews->id,
                 'title' => $objNews->title,
@@ -31,18 +34,19 @@ class Home extends BaseController
                 'date' => $objNews->date
             ]);
         }
+
         return $itens;
     }
 
     /**
-     * @return array|false|string|string[]
+     * @return string
      * @throws Exception
      */
-    public static function getHome()
+    public static function getHome(): string
     {
         $content = View::render('pages/home', [
             'news' => self::getHomePage(3)
         ]);
-        return parent::getPage('TechNews - Home', $content);
+        return parent::getPage('TechNews - IndexController', $content);
     }
 }

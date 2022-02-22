@@ -1,18 +1,41 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller;
 
+use App\Http\Request;
+use App\Utils\Pagination;
 use App\Utils\View;
 
-class Page{
-  private static function getHeader(){
+
+/**
+ * Class BaseController
+ *
+ * @package App\Controller
+ */
+abstract class BaseController{
+    /**
+     * @return string
+     */
+    private static function getHeader(): string
+    {
     return View::render('pages/header');
   }
-  private static function getFooter(){
+
+    /**
+     * @return string
+     */
+    private static function getFooter(): string
+    {
     return View::render('pages/footer');
   }
 
-  public static function getPagination($request,$pagination){
+    /**
+     * @param Request $request
+     * @param Pagination $pagination
+     * @return string
+     */
+    public static function getPagination(Request $request, Pagination $pagination): string
+    {
     $pages = $pagination->getPages();
 
     if(count($pages) <= 1) return '';
@@ -34,7 +57,14 @@ class Page{
       'links' => $links
     ]);
   }
-  public static function getPage($title, $content)  {
+
+    /**
+     * @param string $title
+     * @param string $content
+     * @return string
+     */
+    public static function getPage(string $title, string $content): string
+  {
     return View::render('pages/page', [
       'page-title' => $title,
       'header' => self::getHeader(),
@@ -42,4 +72,14 @@ class Page{
       'page-content' => $content
     ]);
   }
+
+    /**
+     * @param string $url
+     * @return void
+     */
+    public function redirect(string $url)
+    {
+        header("Location: " . $url);
+    }
+
 }

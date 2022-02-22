@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Controller\Pages;
-use App\Utils\View;
-use App\Repository\Database;
-use Exception;
+use App\Controller\BaseController;
 use App\Http\Response;
+use App\Repository\Database;
+use App\Utils\View;
+use Exception;
 
-class Publish extends Page{
+class Publish extends BaseController{
 
   
   public static function getPublishForm(){

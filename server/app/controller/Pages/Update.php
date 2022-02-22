@@ -2,17 +2,18 @@
 
 namespace App\Controller\Pages;
 
-use App\Utils\View;
-use App\Repository\Database;
-use App\Model\Entity\News as NewsEntity;
-use Exception;
+use App\Controller\BaseController;
 use App\Http\Response;
+use App\Model\Entity\News as NewsEntity;
+use App\Repository\Database;
+use App\Utils\View;
+use Exception;
 
-class Update extends Page{
+class Update extends BaseController{
 
   public static function getUpdateForm($id)  {
     if (!$id) {
-      return new Response(404, 'Page not found');
+      return new Response(404, 'BaseController not found');
     }
     $db = new Database('news');
     $dbReturn = $db->select('id=' . $id);
