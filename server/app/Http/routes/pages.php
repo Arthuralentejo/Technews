@@ -1,65 +1,92 @@
 <?php
 
+use App\Http\Request;
 use App\Http\Response;
 use App\Controller\Pages;
-use App\Http\Router;
-
 /**
- * @var Router $router
+ * @var App\Http\Router $router
  */
 
 $router->get('/',[
-    function(){
-        return new Response(200,Pages\Home::getHome());
+    /**
+     * @return Response
+     */ function() : Response
+    {
+        return new Response(200,Pages\IndexController::getHome());
     }
 ]);
+
 $router->get('/news',[
-    function($request){
+    /**
+     * @param $request
+     * @return Response
+     */ function($request) : Response
+    {
         return new Response(200,Pages\News::getNewsPage($request));
     }
 ]);
 $router->get('/news:page',[
-    function($request){
+    /**
+     * @param Request $request
+     * @return Response
+     */ function($request) : Response
+    {
         return new Response(200,Pages\News::getNewsPage($request));
     }
 ]);
 $router->get('/news:id',[
-    function($id){
+    /**
+     * @param int $id
+     * @return Response
+     * @throws Exception
+     */ function(int $id) : Response
+    {
         return new Response(200,Pages\News::getSingleNewsPage($id));
     }
 ]);
 $router->get('/publish',[
-    function(){
+    /**
+     * @return Response
+     */ function() : Response
+    {
         return new Response(200,Pages\Publish::getPublishForm());
     }
 ]);
 $router->post('/publish',[
-    function($request){
+    /**
+     * @param $request
+     * @return Response
+     */ function($request) : Response
+    {
         return Pages\Publish::publish($request);
     }
 ]);
 $router->get('/news/update:id',[
-    function($id){
+    /**
+     * @param $id
+     * @return Response
+     */ function($id) : Response
+    {
         return new Response(200,Pages\Update::getUpdateForm($id));
     }
 ]);
 
-//let me try this
 $router->post('/news/update:id',[
-    function($request){
+    /**
+     * @param $request
+     * @return Response
+     */ function($request) : Response
+    {
         return Pages\Update::Update($request);
     }
 ]);
 
-
-// $router->put('/news/update/{id}',[
-//   function($id){
-//     return Pages\Update::Update($id);
-//   }
-// ]);
-
-$router->delete('/news/delete:id',[
-    function($id){
+$router->delete('/news/delete:id', [
+    /**
+     * @param $id
+     * @return Response
+     */ function($id) : Response
+    {
         return Pages\Delete::delete($id);
     }
 ]);

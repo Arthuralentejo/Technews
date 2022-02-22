@@ -1,5 +1,5 @@
 <?php
-namespace App\Repository;
+namespace App\Utils;
 
 use PDO;
 use PDOException;
@@ -7,7 +7,7 @@ use PDOException;
 /**
  * Class DBConnector
  *
- * @package App\Repository
+ * @package App\Utils
  */
 class DBConnector
 {

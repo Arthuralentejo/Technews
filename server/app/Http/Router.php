@@ -14,6 +14,7 @@ use ReflectionFunction;
 class Router
 {
 
+
     /**
      * @var string
      */
@@ -35,14 +36,31 @@ class Router
     private Request $request;
 
     /**
-     * @param String $url
+     * @var Router
+     */
+    private static Router $instance;
+
+    /**
+     * @param string $url
      * @param string $prefix
      */
-    public function __construct(string $url, string $prefix = '')
+    private function __construct(string $url, string $prefix = '')
     {
         $this->request = new Request($this);
         $this->url = $url;
         $this->setPrefix();
+    }
+
+    /**
+     * @param $url
+     * @return Router
+     */
+    public static function getInstance($url): Router
+    {
+        if (!isset(self::$instance)){
+            self::$instance = new Router($url);
+        }
+        return self::$instance;
     }
 
     /**

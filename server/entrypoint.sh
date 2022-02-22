@@ -1,3 +1,3 @@
 #!/bin/sh
-composer install
+/usr/bin/composer install
 php-fpm -F -R

@@ -28,9 +28,9 @@ class View
      * @param $view
      * @param array $data
      *
-     * @return array|false|string|string[]
+     * @return string
      */
-    public static function render($view, array $data = [])
+    public static function render($view, array $data = []): string
     {
         $contentView = self::getContentView($view);
         $data = array_merge(self::$vars, $data);
@@ -44,9 +44,9 @@ class View
     /**
      * @param $view
      *
-     * @return false|string
+     * @return string
      */
-    private static function getContentView($view)
+    private static function getContentView($view): string
     {
         $file = dirname(__DIR__, 2) . '/resource/view/' . $view . '.html';
 
