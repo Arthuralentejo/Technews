@@ -47,6 +47,6 @@ class IndexController extends BaseController
         $content = View::render('pages/home', [
             'news' => self::getHomePage(3)
         ]);
-        return self::getPage('TechNews - IndexController', $content);
+        return self::getPage('TechNews - Index', $content);
     }
 }

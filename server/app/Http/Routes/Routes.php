@@ -49,7 +49,7 @@ $router->get('/publish',[
      * @return Response
      */ function() : Response
     {
-        return new Response(200,Pages\Publish::getPublishForm());
+        return new Response(200,Pages\PublishController::getPublishForm());
     }
 ]);
 $router->post('/publish',[
@@ -58,7 +58,7 @@ $router->post('/publish',[
      * @return Response
      */ function($request) : Response
     {
-        return Pages\Publish::publish($request);
+        return Pages\PublishController::publish($request);
     }
 ]);
 $router->get('/news/update:id',[
@@ -67,7 +67,7 @@ $router->get('/news/update:id',[
      * @return Response
      */ function($id) : Response
     {
-        return new Response(200,Pages\Update::getUpdateForm($id));
+        return new Response(200,Pages\UpdateController::getUpdateForm($id));
     }
 ]);
 
@@ -77,7 +77,7 @@ $router->post('/news/update:id',[
      * @return Response
      */ function($request) : Response
     {
-        return Pages\Update::Update($request);
+        return Pages\UpdateController::Update($request);
     }
 ]);
 
@@ -87,7 +87,7 @@ $router->delete('/news/delete:id', [
      * @return Response
      */ function($id) : Response
     {
-        return Pages\Delete::delete($id);
+        return Pages\DeleteController::delete($id);
     }
 ]);
 

@@ -1,31 +1,20 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Repository;
 
 use App\Utils\DBConnector;
 use Exception;
+use PDO;
 use PDOException;
 use PDOStatement;
-use PDO;
 use stdClass;
 
-/**
- *
- */
-abstract class BaseModel
+class NewsRepository implements INewsRepository
 {
     /**
-     * @var string
+     * @var PDO
      */
-    protected string $entityField = 'id';
-    /**
-     * @var string
-     */
-    protected string $tableName = '';
-    /**
-     * @var array
-     */
-    protected array $fields = [];
+    protected PDO $connection;
 
     /**
      * @param string|null $order
@@ -41,8 +30,9 @@ abstract class BaseModel
         $query = "SELECT " . implode(',', $this->fields) . " FROM " . $this->tableName . " " . $order . " " . $limit;
         $statement = $this->execute($query);
         $news = [];
-        while ($objNews = $statement->fetch(PDO::FETCH_PROPS_LATE | PDO::FETCH_OBJ)) {
-            $news[] = $objNews;
+        $objNews = $statement->fetchAll(PDO::FETCH_CLASS,"NewsModel");
+        foreach( $objNews as $objNew) {
+            $news[] = $objNew;
         }
         return $news;
     }
@@ -86,31 +76,7 @@ abstract class BaseModel
 
         $query = 'INSERT INTO ' . $this->tableName . '(' . implode(',', $fields) . ') VALUES (' . implode(',', $inter) . ')';
         $this->execute($query, array_values($values));
-        return DBConnector::getInstance()->lastInsertId();
-    }
-
-    /**
-     * @param $id
-     * @param $values
-     * @return bool
-     */
-    public function update($id, $values): bool
-    {
-        $fields = array_keys($values);
-        $query = 'UPDATE ' . $this->tableName . ' SET ' . implode('= ?,', $fields) . '= ? WHERE ' . $this->entityField . ' = ' . $id;
-        $this->execute($query, array_values($values));
-        return true;
-    }
-
-    /**
-     * @param $id
-     * @return bool
-     */
-    public function delete($id): bool
-    {
-        $query = 'DELETE FROM ' . $this->tableName . ' WHERE ' . $this->entityField . ' = ' . $id;
-        $this->execute($query);
-        return true;
+        return $this->connection->lastInsertId();
     }
 
     /**
@@ -118,15 +84,15 @@ abstract class BaseModel
      * @param array $params
      * @return PDOStatement
      */
-    private function execute(string $query, array $params = []): PDOStatement
+    public function execute(string $query, array $params = []): PDOStatement
     {
-        $connection = DBConnector::getInstance();
+        $this->connection = DBConnector::getInstance();
         try {
-            $statement = $connection->prepare($query);
+            $statement = $this->connection->prepare($query);
             $statement->execute($params);
             return $statement;
         } catch (PDOException $e) {
-            throw new PDOException('ERROR: ' . $e->getMessage());
+            die('ERROR: ' . $e->getMessage());
         }
     }
 }

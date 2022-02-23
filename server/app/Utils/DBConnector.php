@@ -52,6 +52,7 @@ class DBConnector
 
     /**
      * @return void
+     * @throws PDOException
      */
     private static function connect(): void
     {
@@ -60,7 +61,7 @@ class DBConnector
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
         } catch (PDOException $e) {
-            die('ERROR: ' . $e->getMessage());
+            throw new PDOException('ERROR: ' . $e->getMessage());
         }
 
     }

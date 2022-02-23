@@ -47,18 +47,17 @@ class NewsController extends BaseController
      * @return string
      * @throws Exception
      */
-    public function getSingleNewsPage($id): string
+    public static function getSingleNewsPage($id): string
     {
         $newsModel = new NewsModel();
-        $news = $newsModel->loadById($id);
-        $objNews = $db->fetchObject(NewsEntity::class);
+        $objNews = $newsModel->loadById($id);
         $content = View::render('pages/singleNews', [
             'id' => $objNews->id,
             'title' => $objNews->title,
             'content' => $objNews->content,
             'date' => $objNews->date
         ]);
-        return $this->getPage('TechNews - ' . $objNews->title, $content);
+        return self::getPage('TechNews - ' . $objNews->title, $content);
     }
 
 
@@ -77,6 +76,6 @@ class NewsController extends BaseController
             'news' => self::getNewsItens($request, $pagination,$newsModel),
             'pagination' => self::getPagination($request, $pagination)
         ]);
-        return parent::getPage('TechNews - NewsController', $content);
+        return parent::getPage('TechNews - News', $content);
     }
 }
